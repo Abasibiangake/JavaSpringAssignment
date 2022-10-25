@@ -92,7 +92,7 @@ public class StudentController implements ErrorController {
 	}
 	
 	@RequestMapping("/profile")
-	public @ResponseBody String userProfile() {
+	public String userProfile() {
 		return "profilepage";
 	}
 	
