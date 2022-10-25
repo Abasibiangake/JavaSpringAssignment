@@ -1,6 +1,10 @@
 package com.boot.mvc.jpa;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,17 +12,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+
 @Controller
-public class StudentController {
+public class StudentController implements ErrorController {
 	
 	@Autowired
 	private StudentRepository stdRepo;
 	
 	@RequestMapping("/")
 	public String home() {
+		
 		return "index";
 	}
 	
+	@RequestMapping("/error")
+	public String errorMessage() {
+		
+		return "error";
+	}
 	@RequestMapping("/registration")
 	public String register() {
 		return "register";
@@ -45,8 +56,28 @@ public class StudentController {
     }
 	
 	@RequestMapping("/sport")
-	public String sportRegister() {
-		return "sportregistration";
+	public String sportRegister(HttpServletRequest request, HttpServletResponse response) {
+		String username = request.getParameter("username");
+        
+		String password = request.getParameter("password");
+		
+		Iterable<Student> iterator = stdRepo.findAll();
+		System.out.println("\n\n********************Question 2 of lab 5.2: *******************");
+		System.out.println("\nList of all the Student Name: ");
+        iterator.forEach(item -> System.out.println(item));
+		System.out.println("\n\n********************Test 2: *******************");
+		System.out.println(stdRepo.findByUserName(username) );
+			
+		Student loginStd = stdRepo.findByUserName(username);
+		System.out.println("\n\n********************Test 3: *******************");
+		System.out.println(loginStd.getPassword());
+		
+		if (username.equals(loginStd.getUserName()) && password.equals((loginStd.getPassword()))) {
+			return "sportregistration";
+		}
+		else
+			return "you entered the wrong user detail. Try Again!";
+		
 	}
 	
 	@RequestMapping("/checkout")
@@ -60,9 +91,9 @@ public class StudentController {
 				+ "/nWe would update your profile shortly!!";
 	}
 	
-	@PostMapping("/profile")
+	@RequestMapping("/profile")
 	public @ResponseBody String userProfile() {
-		return "This would be the profile Page";
+		return "profilepage";
 	}
 	
 

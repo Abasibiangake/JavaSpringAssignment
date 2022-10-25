@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Profile Page</title>
+<title>Error Page</title>
 </head>
 <body>
-
+<h1>Something went wrong! </h1>
+<h2>Our Engineers are on it</h2>
+<a href="/">Login Again</a>
 </body>
 </html>

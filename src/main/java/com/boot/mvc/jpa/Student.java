@@ -135,6 +135,13 @@ public class Student {
 	public void setDocPhone(int docPhone) {
 		this.docPhone = docPhone;
 	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", userName=" + userName + ", password=" + password + ", firstname="
+				+ firstname + ", lastname=" + lastname + ", address=" + address + ", city=" + city + ", postalCode="
+				+ postalCode + ", stdPhone=" + stdPhone + ", doctorName=" + doctorName + ", docPhone=" + docPhone + "]";
+	}
 	
 	
 }
